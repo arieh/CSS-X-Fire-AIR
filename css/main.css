@@ -7,8 +7,6 @@ body{
     margin:0 auto;
 }
 
-
-
 #wrapper{
   height:430px;
   width:430px;
@@ -22,6 +20,9 @@ body{
         color-stop(1, #000)
   );  
 }
+
+.active{color:#5EB542}
+
 h1{
 	text-align:center;
 	margin:10px auto;

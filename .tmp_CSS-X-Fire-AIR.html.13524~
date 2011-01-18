@@ -17,8 +17,8 @@
     <body>
     	<div id='wrapper'>
     	<nav>
-	    	<button id='start'>On</button> 
-			<button id='end' class='active'>Off</button>
+	    	<button id='start'>Start</button> 
+			<button id='end' class='active'>Stop</button>
 			<button id='manage_sites'>Manage Sites</button>
 			<button id="change_settings">Settings</button>
 		</nav>
