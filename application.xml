@@ -23,7 +23,7 @@
 	<name>CSS-X-Fire-AIR</name>
 
 	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
-	<version>1.0</version>
+	<version>0.4.1</version>
 
 	<!-- Description, displayed in the AIR application installer. Optional. -->
 	<description/>
@@ -61,7 +61,7 @@
 		<width>428</width>
 
 		<!-- The window's initial height. Optional. -->
-		<height>404</height>
+		<height>428</height>
 
 		<!-- The window's initial x position. Optional. -->
 		<x>436</x>
