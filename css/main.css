@@ -67,3 +67,15 @@ nav{
     margin:5px auto;
     text-align:center;
 }
+
+#changes{
+    width:380px;
+    font-size:8px;
+    margin:0 auto;
+}
+
+#changes .src { width:38%;}
+#changes .sel { width:8%;}
+#changes .prop {width:8%;}
+#changes .action {width:8%;}
+#changes .val {width:38%;}

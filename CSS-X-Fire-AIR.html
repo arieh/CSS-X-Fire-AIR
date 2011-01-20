@@ -53,7 +53,8 @@
 		</div>
 		<h1>Changes</h1>
 		<table id='changes'>			<thead>
-				<tr>					<th>File</th>					<th>Prop</th>					<th>Value</th>					<th>Action</th>				</tr>
+				<tr>					<th class='src'>File</th>
+					<th class='sel'>Selector</th>					<th class='prop'>Prop</th>					<th class='val'>Value</th>					<th class='action'>Action</th>				</tr>
 			</thead>			<tbody>
 				
 			</tbody>		</table>
@@ -122,10 +123,11 @@
 			css.addEvent('write',function(data){
 				changes.adopt(
 				    new Element('tr').adopt(
-					    new Element('td',{html:data.src})
-						, new Element('td',{html:data.property})
-						, new Element('td',{html:data.value})
-						, new Element('td',{html:data.action})
+					    new Element('td',{html:"...." + data.src.substr(-16),'class':'src'})
+						, new Element('td',{html:data.selector,'class':'sel'})
+						, new Element('td',{html:data.property,'class':'prop'})
+						, new Element('td',{html:data.value,'class':'val'})
+						, new Element('td',{html:data.action,'class':'action'})
 				    )
 				);				
 			});
