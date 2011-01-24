@@ -1,27 +1,53 @@
 body{
     overflow:hidden;
+    background: transparent;
 }
 
-#settings{
-    width:300px;
-    margin:0 auto;
-}
 
 #wrapper{
-  height:430px;
+  height:405px;
   width:430px;
+  padding-top:25px;
   overflow:auto;
-  padding:30px 0;
+  margin:12px;
+  -webkit-border-radius:10px;
   background-image: -webkit-gradient(
         linear,
         left top,
         left bottom,    
-        color-stop(0, #fff),        
-        color-stop(1, #000)
-  );  
+        color-stop(0, #a0e1e2),        
+        color-stop(1, #082686)
+  );
+  
+  border:3px outset #7eabf7;  
 }
 
-.active{color:#5EB542}
+.box{
+    background:#c1eaff;
+    border:2px solid #4073c8;
+}
+
+#settings{
+    width:300px;
+    overflow:hidden;
+    margin:0 auto;
+    padding:10px;
+    display:none;
+    -webkit-border-radius:8px;
+    box-shadow:2px 2px 2px #000;
+}
+#main {height:360px; overflow:auto;}
+
+nav{
+    width:auto;
+    display:block;
+    margin-top:5px;
+    margin:0 auto;
+    text-align:center;
+    line-height:42px;
+    vertical-align:middle;height:42px;
+    
+}
 
 h1{
 	text-align:center;
@@ -29,16 +55,14 @@ h1{
 }
 
 table{
-    font-size : 10px;
-    width:300px;
+    font-size :10px;
+    width:290px;
     margin:0 auto;
-    background:#ccc;
-    border:1px solid;
 }
 
 table thead{
     height:15px;
-    border:1px solid;
+    border:1px solid #4073c8;
 }
 
 table tbody{
@@ -51,8 +75,20 @@ table tbody{
     overflow:hidden;
 }
 
+#sites_cont, #settings {
+    position:absolute;
+    width:300px;
+    right:77px;
+    bottom:55px;
+}
+
+#sites_cont {
+    width:430px;
+    right:12px;
+}
+
 td, th{
-	border:1px solid;
+	border:1px solid #4073c8;
 	padding:5px;
 }
 
@@ -61,12 +97,8 @@ td, th{
     margin: 0 auto;
 }
 
-nav{
-    width:auto;
-    display:block;
-    margin:5px auto;
-    text-align:center;
-}
+
+nav button{display:inline-block;vertical-align:middle}
 
 #changes{
     width:380px;
@@ -79,3 +111,49 @@ nav{
 #changes .prop {width:8%;}
 #changes .action {width:8%;}
 #changes .val {width:38%;}
+
+#power, #change_settings, #manage_sites{
+    width:32px;
+    height:32px;
+    background:transparent no-repeat;
+    border:none;
+    margin:5px;
+    cursor:pointer;
+}
+
+#power.on{
+    background-image:url(../images/power_on.png);
+}
+
+#power.off{
+    background-image:url(../images/power_off.png);
+}
+
+#change_settings {
+	background-image:url(../images/settings.png);
+}
+
+#manage_sites {
+    background-image:url(../images/sites.png);
+}
+
+#main-close{
+    height:24px;
+    width:24px;
+    position:absolute;
+    right:0px;
+    top:5px;
+    background-image:url(../images/close.png);
+    cursor:pointer;
+}
+
+#move{
+	height:15px; 
+	width:15px; 
+	cursor:move;
+	top:17px; 
+	left:17px;
+	background-image:url(../images/move.png);
+	display:block;
+	position:absolute;
+}

@@ -9,6 +9,7 @@
         <script src="lib/db-setup.js"></script>
 		<script src='lib/db-ver-0.4.js'></script>
         <script src='lib/db-ver-0.4.-.js'></script>
+        <script src='lib/db-ver-0.5.js'></script>
         <script src='lib/Settings.js'></script>
 		<script src="lib/FolderTable.js"></script>
 		<script src='lib/SocketHandler.js'></script>
@@ -18,15 +19,27 @@
     </head>
     <body>
     	<div id='wrapper'>
-    	<nav>
-	    	<button id='start'>On</button> 
-			<button id='end' class='active'>Off</button>
-			<button id='manage_sites'>Manage Sites</button>
-			<button id="change_settings">Settings</button>
-		</nav>
-		<div id='settings'></div>
+        <span id='main-close'></span>
+		<span id='move'></span>
+		<section id='main'>
+        <h1>Changes</h1>
+        <table id='changes' class='box'>
+            <thead>
+                <tr>
+                    <th class='src'>File</th>
+                    <th class='sel'>Selector</th>
+                    <th class='prop'>Prop</th>
+                    <th class='val'>Value</th>
+                    <th class='action'>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+		<div id='settings' class='box'></div>
 		<div id='sites_cont'>
-		<table id='sites'>
+		<table id='sites' class='box'>
     		<thead>
     			<tr>
     				<th>Site Address</th>
@@ -51,18 +64,19 @@
 			</tfoot>
     	</table>
 		</div>
-		<h1>Changes</h1>
-		<table id='changes'>			<thead>
-				<tr>					<th class='src'>File</th>
-					<th class='sel'>Selector</th>					<th class='prop'>Prop</th>					<th class='val'>Value</th>					<th class='action'>Action</th>				</tr>
-			</thead>			<tbody>
-				
-			</tbody>		</table>
+		</section>
+        <nav>
+            <button id='power' class='off' title='Click to turn on'></button>
+            <button id='manage_sites' title="Manage Sites"></button>
+            <button id="change_settings" title='Settings'></button>
+        </nav>
 		</div>
     	<script type="text/javascript">
 			var sites_open = false
+			  , settings_open = false
 			  , settings = new Settings(__db__)
-              , sites_fx = new Fx.Tween('sites_cont')
+              , sites_fx = new Fx.Tween('sites_cont', {transition: Fx.Transitions.Bounce.easeOut,duration:800})
+			  , settings_fx = new Fx.Tween('settings', {transition: Fx.Transitions.Bounce.easeOut,duration:800}).set('height',0)
 			  , changes = $$('#changes tbody')[0]
 			  , on = false
 	          , table = new FolderTable('sites',__db__)
@@ -74,22 +88,45 @@
 				socket.options = data;
 			});
 			
+			function toggleSettings(){
+                if (sites_open) toggleSites();
+				
+				if (settings_open){
+                    settings_fx.start('height',0).chain(function(){
+                        $('settings').empty();
+                        settings_fx.set('display','none');
+                    });
+                    settings_open = false;
+                }else{
+                    settings.populateSettings('settings');
+                    settings_fx.set('display','block');
+                    settings_fx.start('height',170);
+                    settings_open = true;   
+                }
+			}
+			
+			function toggleSites(){
+                if (settings_open) toggleSettings();
+				sites_fx.start('height',sites_open ? 0 : '150px');
+                sites_open = sites_open ? false : true;
+            }
+			
 			function start(){
 				socket.listen();
 				on=true;
-				$('start').addClass('active');
-				$('end').removeClass('active');
+				$('power').set('title','Click to turn off').removeClass('off').addClass('on');
 			}
 			
 			function end(){
 				socket.close();
 				on = false;
-                $('end').addClass('active');
-                $('start').removeClass('active');
+                $('power').set('title','Click to turn on').removeClass('on').addClass('off');
 		    }
 			
-			$('start').addEvent('click',start);
-			$('end').addEvent('click',end);		
+			$('power').addEvent('click',function(e){
+				if (on) end();
+				else start();
+			});	
 			 
 			$('sites_cont').addEvent('click',function(e){
 			     var url, state;
@@ -107,18 +144,19 @@
 				 }
 			});
 			
-			$('manage_sites').addEvent('click',function(){
-				sites_fx.start('height',sites_open ? 0 : '150px');
-				sites_open = sites_open ? false : true;
-			});
+			$('manage_sites').addEvent('click',toggleSites);
 			
 			$('add_folder').addEvent('submit',function(){
 				table.addSite($('address').value,$('folder').value);
 			});
 			
-			$('change_settings').addEvent('click',function(){
-				settings.populateSettings('settings');
-			});
+			$('change_settings').addEvent('click',toggleSettings);
+			
+			$('main-close').addEvent('click',function(){air.NativeApplication.nativeApplication.exit();})
+			
+			$('move').addEvent('mousedown' , function(){
+				window.nativeWindow.startMove();
+		    });
 			
 			css.addEvent('write',function(data){
 				changes.adopt(
@@ -133,16 +171,18 @@
 			});
 			
 			settings.addEvent('update',function(prop,value){
+				var data = {};
+				data[prop] = value;
 				if (prop == 'host' || prop == 'port'){
-					socket.options[prop] = value;
-					socket.close();
-					socket.listen();
+					end();
+					socket.changeBindings(data);
+					start();
 				}
 			});
 			
 			settings.get('start',function(data){
 				if (data.start==1) start();				
-			})
+			});
         </script>
     </body>
 </html>
