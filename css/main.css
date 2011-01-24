@@ -3,23 +3,29 @@ body{
     background: transparent;
 }
 
-
 #wrapper{
-  height:405px;
-  width:430px;
+  height:385px;
+  width:420px;
   padding-top:25px;
   overflow:auto;
-  margin:12px;
+  top:12px;
+  left:12px;
   -webkit-border-radius:10px;
-  background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,    
-        color-stop(0, #a0e1e2),        
-        color-stop(1, #082686)
-  );
-  
-  border:3px outset #7eabf7;  
+  background: #a0e1e2;  
+  z-index:2;  
+  position:relative;
+}
+
+#border{
+    z-index:0;
+    position:absolute;
+    border:12px solid #4073c8;
+    background:#4073c8;
+	height:408px;
+	width:418px;
+	top:1px;
+	left:1px;
+    -webkit-border-radius:10px;
 }
 
 .box{
@@ -36,7 +42,7 @@ body{
     -webkit-border-radius:8px;
     box-shadow:2px 2px 2px #000;
 }
-#main {height:360px; overflow:auto;}
+#main {height:340px; overflow:auto;}
 
 nav{
     width:auto;
@@ -78,13 +84,13 @@ table tbody{
 #sites_cont, #settings {
     position:absolute;
     width:300px;
-    right:77px;
+    right:60px;
     bottom:55px;
 }
 
 #sites_cont {
     width:430px;
-    right:12px;
+    right:0px;
 }
 
 td, th{
@@ -119,6 +125,7 @@ nav button{display:inline-block;vertical-align:middle}
     border:none;
     margin:5px;
     cursor:pointer;
+    z-index:10;
 }
 
 #power.on{
@@ -141,10 +148,11 @@ nav button{display:inline-block;vertical-align:middle}
     height:24px;
     width:24px;
     position:absolute;
-    right:0px;
-    top:5px;
+    right:9px;
+    top:2px;
     background-image:url(../images/close.png);
     cursor:pointer;
+    z-index:300;
 }
 
 #move{
@@ -156,4 +164,5 @@ nav button{display:inline-block;vertical-align:middle}
 	background-image:url(../images/move.png);
 	display:block;
 	position:absolute;
+	z-index:300;
 }

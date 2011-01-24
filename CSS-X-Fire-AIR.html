@@ -18,9 +18,10 @@
 		<link rel="stylesheet" href="css/main.css">
     </head>
     <body>
-    	<div id='wrapper'>
+    	<div id='border'></div>
         <span id='main-close'></span>
-		<span id='move'></span>
+        <span id='move'></span>
+    	<div id='wrapper'>
 		<section id='main'>
         <h1>Changes</h1>
         <table id='changes' class='box'>
@@ -87,7 +88,7 @@
 			settings.get(['host','port'],function(data){
 				socket.options = data;
 			});
-			
+			$('wrapper').setStyle('z-index',100);
 			function toggleSettings(){
                 if (sites_open) toggleSites();
 				
